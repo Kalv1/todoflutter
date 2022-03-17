@@ -15,7 +15,7 @@ class Task {
         userId = json['userId'];
 
   //prepare json data from Dart object to send to API
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
       'id': id,
       'userId': userId,
       'completed': completed,

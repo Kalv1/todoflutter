@@ -29,7 +29,9 @@ class _AllTasksState extends State<AllTasks> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+
+
     return Consumer<TasksCollection>(
         builder: (context, task, child) => Scaffold(
               floatingActionButton: FloatingActionButton(
@@ -42,7 +44,16 @@ class _AllTasksState extends State<AllTasks> {
               appBar: AppBar(
                 title: Text(widget.title, style: GoogleFonts.outfit()),
               ),
-              body: TaskMaster(task.getAllTask(), deleteTaskFromData),
+              body: FutureBuilder<List<Task>>(
+                future: task.getAllTask(),
+                builder:(BuildContext context, AsyncSnapshot<List<Task>> snapshot){
+                  if(snapshot.hasData){
+                    return TaskMaster(snapshot.data, deleteTaskFromData);
+                  }else{
+                    return Container();
+                  }
+                }
+              ),
             ));
   }
 }
